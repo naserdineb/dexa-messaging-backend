@@ -1,0 +1,1 @@
+// Modèle utilisateur (utile si ORM ou logique custom)

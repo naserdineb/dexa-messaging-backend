@@ -1,0 +1,1 @@
+// Modèle message (utile si ORM ou logique custom)

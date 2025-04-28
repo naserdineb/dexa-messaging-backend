@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription - Dexa</title>
+</head>
+<body>
+  <h2>Créer un compte</h2>
+ <form id="registerForm">
+  <input type="text" name="username" placeholder="Pseudo" required><br>
+  <input type="email" name="email" placeholder="Email" required><br>
+  <input type="password" name="password" placeholder="Mot de passe" required><br>
+  <button type="submit">S'inscrire</button>
+</form>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if(result.message && result.user_id){
+      alert("✅ Inscription réussie !");
+      window.location.href = "/login.html";
+    } else {
+      alert(result.message || "Erreur inconnue ❌");
+    }
+
+  } catch (err) {
+    alert("❌ Erreur lors de l'inscription");
+    console.error(err);
+  }
+});
+</script>
